@@ -1,0 +1,11 @@
+{
+  "name": "syncFold",
+  "version": "1.0.0",
+  "main": "syncFold.js",
+  "author": "l.fiorani",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "fs-extra": "^11.1.0"
+  }
+}
