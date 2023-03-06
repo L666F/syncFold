@@ -26,9 +26,9 @@ jobs:
         
     - run: npm i -g yarn
     - run: yarn --prod
-    - run: pushd node_modules/@nodegui/nodegui
-    - run: npm run build:addon
-    - run: popd
+    #- run: pushd node_modules/@nodegui/nodegui
+    #- run: npm run build:addon
+    #- run: popd
     - run: yarn run compile
     
     - name: Upload a Build Artifact
@@ -53,9 +53,9 @@ jobs:
         
     - run: npm i -g yarn
     - run: yarn --prod
-    - run: pushd node_modules/@nodegui/nodegui
-    - run: npm run build:addon
-    - run: popd
+    #- run: pushd node_modules/@nodegui/nodegui
+    #- run: npm run build:addon
+    #- run: popd
     - run: yarn run compile
     
     - name: Upload a Build Artifact
