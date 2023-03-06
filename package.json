@@ -6,8 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production",
-    "compile": "yarn run build && nodegui-packer --pack ./dist",
+    "build": "npx webpack --mode production",
+    "compile": "yarn run build && npx nodegui-packer --pack ./dist",
     "start": "webpack && qode ./dist/index.js",
     "debug": "webpack && qode --inspect ./dist/index.js"
   },
