@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "build": "npx webpack --mode production",
-    "compile": "yarn run build && npx nodegui-packer --pack ./dist",
+    "compile": "yarn run build && npx nodegui-packer --init syncFold && npx nodegui-packer --pack ./dist",
     "start": "webpack && qode ./dist/index.js",
     "debug": "webpack && qode --inspect ./dist/index.js"
   },
