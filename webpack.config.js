@@ -1,5 +1,11 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { IgnorePlugin } = require("webpack");
+
+const optionalPlugins = [];
+if (process.platform !== "darwin") {
+  optionalPlugins.push(new IgnorePlugin({ resourceRegExp: /^fsevents$/ }));
+}
 
 module.exports = {
   mode: process.NODE_ENV || "development",
@@ -7,37 +13,37 @@ module.exports = {
   target: "node",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "index.js"
+    filename: "index.js",
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: "ts-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         use: [
           {
             loader: "file-loader",
-            options: { publicPath: "dist" }
-          }
-        ]
+            options: { publicPath: "dist" },
+          },
+        ],
       },
       {
         test: /\.node$/,
         use: [
           {
             loader: "native-addon-loader",
-            options: { name: "[name]-[hash].[ext]" }
-          }
-        ]
-      }
-    ]
+            options: { name: "[name]-[hash].[ext]" },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".jsx"]
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
   },
-  plugins: [new CleanWebpackPlugin()]
+  plugins: [new CleanWebpackPlugin(), ...optionalPlugins],
 };
