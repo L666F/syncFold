@@ -59,6 +59,7 @@ jobs:
           committer_name: Workflow build.yml
           default_author: user_info
           message: "Added deploy files for Windows"
+          pull: '--rebase'
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
@@ -90,6 +91,7 @@ jobs:
           committer_name: Workflow build.yml
           default_author: user_info
           message: "Added deploy files for Windows"
+          pull: '--rebase'
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
