@@ -53,15 +53,6 @@ jobs:
     - run: sudo add-apt-repository universe
     - run: sudo apt install libfuse2
     
-    - run: yarn run compile:init
-    
-    - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
-      with:
-        add: 'deploy'
-        committer_name: Workflow build.yml
-        default_author: user_info
-        message: 'Added deploy files for Linux'
-    
     - run: yarn run compile
     
     - name: Upload a Build Artifact
