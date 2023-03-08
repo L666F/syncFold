@@ -5,92 +5,94 @@ name: Build CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build-macos:
-
     runs-on: macOS-latest
 
     steps:
-    - name: Checkout of the code
-      uses: actions/checkout@v3
-    
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-        cache: 'npm'
-        
-    - run: npm i -g yarn
-    - run: yarn --prod
-    - run: yarn run compile
-    
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: macOS build artifact
-        path: deploy/darwin/build/*.dmg
-        
-  build-linux:
+      - name: Checkout of the code
+        uses: actions/checkout@v3
 
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "npm"
+
+      - run: npm i -g yarn
+      - run: yarn --prod
+      - run: yarn run compile
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: macOS build artifact
+          path: deploy/darwin/build/*.dmg
+
+  build-linux:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout of the code
-      uses: actions/checkout@v3
-    
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-        cache: 'npm'
-        
-    - run: npm i -g yarn
-    - run: yarn --prod
-    - run: sudo add-apt-repository universe
-    - run: sudo apt install libfuse2
-    
-    - run: yarn run compile
-    
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: Linux build artifact
-        path: deploy/**/*.AppImage
-        
-  build-windows:
+      - name: Checkout of the code
+        uses: actions/checkout@v3
 
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "npm"
+
+      - run: npm i -g yarn
+      - run: yarn --prod
+      - run: sudo add-apt-repository universe
+      - run: sudo apt install libfuse2
+
+      - run: yarn run compile
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: "deploy"
+          committer_name: Workflow build.yml
+          default_author: user_info
+          message: "Added deploy files for Windows"
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: Linux build artifact
+          path: deploy/**/*.AppImage
+
+  build-windows:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout of the code
-      uses: actions/checkout@v3
-    
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-        cache: 'npm'
-        
-    - run: npm i -g yarn
-    - run: yarn --prod
-    
-    - run: yarn run compile:init
-    
-    - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
-      with:
-        add: 'deploy'
-        committer_name: Workflow build.yml
-        default_author: user_info
-        message: 'Added deploy files for Windows'
-    
-    - run: yarn run compile
-    
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: Windows build artifact
-        path: deploy/**/*.exe
+      - name: Checkout of the code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "npm"
+
+      - run: npm i -g yarn
+      - run: yarn --prod
+
+      - run: yarn run compile
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: "deploy"
+          committer_name: Workflow build.yml
+          default_author: user_info
+          message: "Added deploy files for Windows"
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: Windows build artifact
+          path: deploy/**/*.exe

@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=Application
+Name=syncFold
 Exec=AppRun %F
-Icon=default
-Comment=Edit this default file
+Icon=syncFold
+Comment=Simple folder sync
 Terminal=true
 Categories=Utility;
