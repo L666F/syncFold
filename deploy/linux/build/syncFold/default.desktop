@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=syncFold
+Exec=AppRun %F
+Icon=syncFold
+Comment=Simple folder sync
+Terminal=true
+Categories=Utility;
