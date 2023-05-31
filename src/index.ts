@@ -253,12 +253,19 @@ function createWindow(
   stopWatchingButton.addEventListener("clicked", async () => {
     console.log(`Stopping watcher...`);
 
+    const prevSource = sourceFolderInput.text();
+    const prevTarget = targetFolderInput.text();
+
     // Clear the recent sources and destinations and add the current ones
     sourceComboBox.clear();
     sourceComboBox.addItems(["", ...db.data.recentSources]);
 
     targetComboBox.clear();
     targetComboBox.addItems(["", ...db.data.recentDestinations]);
+
+    // Set the input fields to the previous values, these get reset when resetting the combo boxes
+    sourceFolderInput.setText(prevSource);
+    targetFolderInput.setText(prevTarget);
 
     logs.pop();
     logs.unshift(`[${new Date().toLocaleString()}] Stopping watcher...`);
